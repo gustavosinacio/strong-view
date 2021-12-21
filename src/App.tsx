@@ -1,12 +1,16 @@
-import { Button } from "@mui/material";
+import { Button, Typography, useTheme } from "@mui/material";
 import { Outlet } from "react-router-dom";
 
 import { Link } from "./App.styles";
 
 export function App() {
+  const theme = useTheme();
+
+  console.log(9821, theme);
+
   return (
     <div style={{}}>
-      <h1 style={{ marginLeft: "20px" }}>Strong View</h1>
+      <Typography>Strong View</Typography>
       <nav
         style={{
           borderBottom: "solid 1px",
@@ -15,13 +19,19 @@ export function App() {
       >
         <div style={{ marginLeft: "20px" }}>
           <Link to="/home">
-            <Button variant="outlined">Home</Button>
+            <Button size="large" variant="outlined" color="warning">
+              Home
+            </Button>
           </Link>
           <Link to="/about">
-            <Button variant="outlined">About</Button>
+            <Button size="large" variant="outlined" color="primary">
+              About
+            </Button>
           </Link>
           <Link to="/testgrounds">
-            <Button variant="outlined">Testgrounds</Button>
+            <Button size="large" variant="outlined" color="primary">
+              Testgrounds
+            </Button>
           </Link>
         </div>
       </nav>
