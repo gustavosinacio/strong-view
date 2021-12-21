@@ -1,8 +1,11 @@
-import { Outlet, Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import { Outlet } from "react-router-dom";
+
+import { Link } from "./App.styles";
 
 export function App() {
   return (
-    <div>
+    <div style={{}}>
       <h1 style={{ marginLeft: "20px" }}>Strong View</h1>
       <nav
         style={{
@@ -11,16 +14,14 @@ export function App() {
         }}
       >
         <div style={{ marginLeft: "20px" }}>
-          <Link style={{ color: "white" }} to="/home">
-            Home
-          </Link>{" "}
-          |{" "}
-          <Link style={{ color: "white" }} to="/about">
-            About
-          </Link>{" "}
-          |{" "}
-          <Link style={{ color: "white" }} to="/testgrounds">
-            Testgrounds
+          <Link to="/home">
+            <Button variant="outlined">Home</Button>
+          </Link>
+          <Link to="/about">
+            <Button variant="outlined">About</Button>
+          </Link>
+          <Link to="/testgrounds">
+            <Button variant="outlined">Testgrounds</Button>
           </Link>
         </div>
       </nav>

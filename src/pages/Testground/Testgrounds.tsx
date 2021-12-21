@@ -14,7 +14,7 @@ export const Testgrounds = () => {
       >
         {testgrounds.map((testground) => (
           <Link
-            style={{ display: "block", margin: "1rem 0", color: "white" }}
+            style={{ display: "block", marginBottom: "20px", color: "white" }}
             to={`/testgrounds/${testground.id}`}
             key={testground.id}
           >
