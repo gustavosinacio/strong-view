@@ -1,21 +1,28 @@
 import { Outlet, Link } from "react-router-dom";
 
-import { getTestgrounds } from "./data";
-
 export function App() {
-  const testgrounds = getTestgrounds();
-
   return (
-    <div style={{ padding: "10px 20px" }}>
-      <h1>Strong View</h1>
+    <div>
+      <h1 style={{ marginLeft: "20px" }}>Strong View</h1>
       <nav
         style={{
           borderBottom: "solid 1px",
           paddingBottom: "1rem",
         }}
       >
-        <Link to="/home">Home</Link> | <Link to="/about">About</Link> |{" "}
-        <Link to="/testgrounds">Testground</Link>
+        <div style={{ marginLeft: "20px" }}>
+          <Link style={{ color: "white" }} to="/home">
+            Home
+          </Link>{" "}
+          |{" "}
+          <Link style={{ color: "white" }} to="/about">
+            About
+          </Link>{" "}
+          |{" "}
+          <Link style={{ color: "white" }} to="/testgrounds">
+            Testgrounds
+          </Link>
+        </div>
       </nav>
       <Outlet />
     </div>

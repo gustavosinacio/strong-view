@@ -15,6 +15,14 @@ export const Router = () => {
           <Route path="home" element={<Home />} />
           <Route path="about" element={<div>about</div>} />
           <Route path="testgrounds" element={<Testgrounds />}>
+            <Route
+              index
+              element={
+                <div>
+                  <h2>Select a testground</h2>
+                </div>
+              }
+            />
             <Route path=":groundId" element={<Testground />} />
           </Route>
           <Route

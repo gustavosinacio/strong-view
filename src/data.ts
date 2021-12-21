@@ -1,7 +1,7 @@
 const testgrounds = [
-  { name: "testground1", id: "tesground-id-1" },
-  { name: "testground2", id: "tesground-id-2" },
-  { name: "testground3", id: "tesground-id-123u123" },
+  { name: "Testground1", id: "testground-id-1" },
+  { name: "Testground2", id: "testground-id-2" },
+  { name: "Testground3", id: "testground-id-123u123" },
 ];
 
 export function getTestgrounds() {
