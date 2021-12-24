@@ -3,13 +3,15 @@ import { Outlet } from "react-router-dom";
 
 import { Link } from "./App.styles";
 
+import { ThemeProvider } from "@mui/material";
+
 export function App() {
   const theme = useTheme();
 
   console.log(9821, theme);
 
   return (
-    <div style={{}}>
+    <ThemeProvider theme={theme}>
       <Typography>Strong View</Typography>
       <nav
         style={{
@@ -36,6 +38,6 @@ export function App() {
         </div>
       </nav>
       <Outlet />
-    </div>
+    </ThemeProvider>
   );
 }

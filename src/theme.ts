@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
-export const theme = createTheme({
+
+let theme = createTheme({
   palette: {
     mode: "dark",
     primary: {
@@ -11,22 +12,44 @@ export const theme = createTheme({
       dark: "#da5910",
     },
   },
-  status: {
-    danger: "#faf910",
+  colors: {
+    // yellow: "#faf910",
+    // red: "#fa3040",
   },
   typography: {
-    fontFamily: [
-      "-apple-system",
-      "BlinkMacSystemFont",
-      '"Segoe UI"',
-      "Roboto",
-      '"Helvetica Neue"',
-      "Arial",
-      "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(","),
-    fontSize: 14,
+    // fontFamily: [
+    //   "-apple-system",
+    //   "BlinkMacSystemFont",
+    //   '"Segoe UI"',
+    //   "Roboto",
+    //   '"Helvetica Neue"',
+    //   "Arial",
+    //   "sans-serif",
+    //   '"Apple Color Emoji"',
+    //   '"Segoe UI Emoji"',
+    //   '"Segoe UI Symbol"',
+    // ].join(","),
+    fontFamily: "Quicksand",
+    fontSize: 15,
+    fontWeightLight: 400,
+    fontWeightRegular: 500,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+
+    body1: {
+      fontFamily: "Arial",
+    },
   },
 });
+
+let customTypography = createTheme({
+  typography: {
+    fontFamily: "Quicksand",
+  },
+}).typography;
+
+theme = createTheme(theme, {
+  typography: customTypography,
+});
+
+export { theme };

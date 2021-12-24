@@ -1,3 +1,4 @@
+import { Color } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 
 declare module "*.svg" {
@@ -7,14 +8,16 @@ declare module "*.svg" {
 
 declare module "@mui/material/styles" {
   interface Theme extends ThemeProvider {
-    status: {
-      danger: string;
+    colors: {
+      yellow?: Color;
+      red?: Color;
     };
   }
   // allow configuration using `createTheme`
   interface ThemeOptions {
-    status?: {
-      danger?: string;
+    colors?: {
+      yellow?: Color;
+      red?: Color;
     };
   }
 }

@@ -1,8 +1,10 @@
-import { Link, Outlet } from "react-router-dom";
+import { Color, useTheme } from "@mui/material";
+import { NavLink, Outlet } from "react-router-dom";
 import { getTestgrounds } from "../../data";
 
 export const Testgrounds = () => {
   let testgrounds = getTestgrounds();
+  const theme = useTheme();
   return (
     <div style={{ display: "flex" }}>
       <nav
@@ -13,13 +15,17 @@ export const Testgrounds = () => {
         }}
       >
         {testgrounds.map((testground) => (
-          <Link
-            style={{ display: "block", marginBottom: "20px", color: "white" }}
+          <NavLink
+            style={({ isActive }) => ({
+              display: "block",
+              marginBottom: "20px",
+              color: isActive ? "#fa3040" : "#fff",
+            })}
             to={`/testgrounds/${testground.id}`}
             key={testground.id}
           >
             {testground.name}
-          </Link>
+          </NavLink>
         ))}
       </nav>
       <Outlet />
