@@ -1,75 +1,58 @@
 import { Button } from "@mui/material";
-import { ReactElement, useState } from "react";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { ReactElement, useContext, useState } from "react";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
+import { getAuth, signOut } from "firebase/auth";
 
 import { Container } from "./Home.styles";
+import { UserContext } from "../../contexts/user";
 
 export const Home = (): ReactElement => {
+  const { user, setUser } = useContext(UserContext);
+
+  const [title, setTitle] = useState("testtitle");
+  const [content, setContent] = useState("notecontent");
+
   const db = getFirestore();
   const auth = getAuth();
-  const [count, setCount] = useState(0);
 
-  const upCount = async () => {
-    setCount((prevCount) => prevCount + 1);
-
+  const addNoteFirebase = async () => {
     try {
-      const docRef = await setDoc(doc(db, "cities", "LA"), {
-        name: "Los Angeles",
-        state: "CA",
-        country: "USA",
-      });
+      const docRef = await addDoc(
+        collection(db, "users", user.uid || "", "notes"),
+        {
+          title,
+          content,
+        }
+      );
       console.log("Document written with ID: ", docRef);
     } catch (e: any) {
       console.error("Error adding document: ", e.message);
     }
   };
 
-  const login = async () => {
+  const logout = async () => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        "gsinacio94@gmail.com",
-        "testOutStrongPassword"
-      );
+      await signOut(auth);
+      setUser({});
 
-      const user = userCredential.user;
-      console.log(98213, "logging in", user);
-    } catch (error: any) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.log(98211, { errorCode, errorMessage });
+      console.log(98214, "signedOut");
+    } catch (e) {
+      console.log(982172, "error at sign out", e);
     }
-  };
-
-  const createUser = async () => {
-    createUserWithEmailAndPassword(
-      auth,
-      "gsinacio94@gmail.com",
-      "testOutStrongPassword"
-    );
   };
 
   return (
     <Container>
       <div>
-        <Button variant="contained" onClick={createUser}>
-          create user
-        </Button>
-        <Button variant="contained" onClick={login}>
-          Login
+        <Button variant="contained" onClick={logout}>
+          logout
         </Button>
       </div>
       <p>
-        Count: <span>{count}</span>
+        <span>{title}</span>
       </p>
-      <Button variant="contained" onClick={upCount}>
-        Upcount
+      <Button variant="contained" onClick={addNoteFirebase}>
+        add note
       </Button>
     </Container>
   );

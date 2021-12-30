@@ -1,18 +1,29 @@
+import { useContext, useEffect } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Routes, Route } from "react-router-dom";
 
-import { App } from "./App";
 import { FallbackPage } from "./pages/FallbackPage";
 import { Home } from "./pages/Home/Home";
 import { Testground } from "./pages/Testground";
 import { Testgrounds } from "./pages/Testground";
+import { SignIn } from "./pages/Auth/SignIn";
+import { SignUp } from "./pages/Auth/SignUp";
+// import { getAuth } from "firebase/auth";
+import { UserContext } from "./contexts/user";
 
 export const Router = () => {
+  const { user } = useContext(UserContext);
+  const isLoggedIn = user.email;
+
+  useEffect(() => {
+    console.log(982103, { isLoggedIn });
+  }, [isLoggedIn]);
+
   return (
     <ErrorBoundary FallbackComponent={FallbackPage}>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="home" element={<Home />} />
+      {isLoggedIn ? (
+        <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="about" element={<div>about</div>} />
           <Route path="testgrounds" element={<Testgrounds />}>
             <Route
@@ -33,8 +44,13 @@ export const Router = () => {
               </main>
             }
           />
-        </Route>
-      </Routes>
+        </Routes>
+      ) : (
+        <Routes>
+          <Route path="/" element={<SignIn />} />
+          <Route path="/signUp" element={<SignUp />} />
+        </Routes>
+      )}
     </ErrorBoundary>
   );
 };
