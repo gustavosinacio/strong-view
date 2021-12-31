@@ -27,6 +27,7 @@ export const Header = () => {
         display: "flex",
         justifyContent: "space-between",
         padding: "20px",
+        paddingBottom: "0",
       }}
     >
       <Box
