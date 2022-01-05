@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 import { UserContext } from "./contexts/user";
 
 import { FallbackPage } from "./pages/FallbackPage";
-import { Home } from "./pages/Home/Home";
+import { AddNote } from "./pages/AddNote/AddNote";
 import { Testground } from "./pages/Testground";
 import { Testgrounds } from "./pages/Testground";
 import { SignIn } from "./pages/Auth/SignIn";
@@ -19,10 +19,6 @@ export const Router = () => {
   const isLoggedIn = user.email;
 
   useEffect(() => {
-    console.log(982103, { isLoggedIn });
-  }, [isLoggedIn]);
-
-  useEffect(() => {
     auth.currentUser?.reload();
   }, [auth.currentUser]);
 
@@ -33,7 +29,8 @@ export const Router = () => {
           <Header />
 
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<div>Home</div>} />
+            <Route path="add-note" element={<AddNote />} />
             <Route path="about" element={<div>about</div>} />
             <Route path="testgrounds" element={<Testgrounds />}>
               <Route

@@ -23,7 +23,6 @@ export const SignIn = () => {
   const [error, setError] = useState("");
 
   const { setUser } = useContext(UserContext);
-  // console.log(9821123, userContext);
 
   const handleChange = (event: any) => {
     const { id, value } = event.target;

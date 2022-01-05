@@ -6,7 +6,7 @@ import "./configs/firebase";
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
 import { Router } from "./routes";
-import { theme } from "./theme";
+import { theme } from "./styles/theme";
 import { UserProvider } from "./contexts/user";
 
 ReactDOM.render(

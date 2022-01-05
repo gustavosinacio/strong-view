@@ -1,10 +1,19 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import SleddingIcon from "@mui/icons-material/Sledding";
 import { getAuth, signOut } from "firebase/auth";
 import { useContext } from "react";
+
 import { UserContext } from "../../contexts/user";
+import {
+  Link,
+  BoxStyle,
+  LogoutButtonStyle,
+  LinkBoxStyle,
+  LinkStyle,
+} from "./Header.styles";
+import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const auth = getAuth();
@@ -22,40 +31,33 @@ export const Header = () => {
   };
 
   return (
-    <Box
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        padding: "20px",
-        paddingBottom: "0",
-      }}
-    >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-
-          "& > *:not(:first-child)": {
-            marginLeft: "10px",
-          },
-        }}
-      >
-        <SleddingIcon color="primary" fontSize="large" />
-        <Typography variant="h6">Strong Life</Typography>
-      </Box>
-      <Button
-        variant="contained"
-        onClick={logout}
-        sx={{
-          "& > *:not(:first-child)": {
-            marginLeft: "4px",
-          },
-        }}
-      >
-        <Typography variant="button">logout</Typography>
-        <LogoutIcon fontSize="small" />
-      </Button>
+    <Box>
+      <Container sx={BoxStyle}>
+        <Box>
+          <Link to="/">
+            <SleddingIcon color="primary" fontSize="large" />
+            <Typography variant="h6">Strong Life</Typography>
+          </Link>
+        </Box>
+        <Button variant="contained" onClick={logout} sx={LogoutButtonStyle}>
+          <Typography>logout</Typography>
+          <LogoutIcon fontSize="small" />
+        </Button>
+      </Container>
+      <Container sx={LinkBoxStyle}>
+        <NavLink to="/" style={LinkStyle}>
+          Home
+        </NavLink>
+        <NavLink to="add-note" style={LinkStyle}>
+          +note
+        </NavLink>
+        <NavLink to="about" style={LinkStyle}>
+          about
+        </NavLink>
+        <NavLink to="testgrounds" style={LinkStyle}>
+          testgrounds
+        </NavLink>
+      </Container>
     </Box>
   );
 };

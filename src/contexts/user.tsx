@@ -1,5 +1,4 @@
 // import { Auth, getAuth } from "firebase/auth";
-import { getAuth } from "firebase/auth";
 import {
   createContext,
   Dispatch,
@@ -24,9 +23,6 @@ export const UserContext = createContext({} as UserContextProps);
 
 export const UserProvider: React.FC = ({ children }) => {
   const storedUser = localStorage.getItem("auth");
-  const auth = getAuth();
-
-  console.log(98219, { storedUser, auth });
 
   const parsedUser = JSON.parse(storedUser || "{}");
 

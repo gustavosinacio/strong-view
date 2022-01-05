@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import { sizing } from "./sizing";
 
 let theme = createTheme({
   palette: {
@@ -20,6 +21,7 @@ let theme = createTheme({
     // yellow: "#faf910",
     // red: "#fa3040",
   },
+  sizing: { ...sizing },
   typography: {
     fontFamily: [
       "Quicksand",
