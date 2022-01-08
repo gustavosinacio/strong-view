@@ -5,13 +5,14 @@ import { getAuth } from "firebase/auth";
 
 import { UserContext } from "./contexts/user";
 
-import { FallbackPage } from "./pages/FallbackPage";
 import { AddNote } from "./pages/AddNote/AddNote";
-import { Testground } from "./pages/Testground";
-import { Testgrounds } from "./pages/Testground";
+import { FallbackPage } from "./pages/FallbackPage";
+import { Header } from "./components/Header";
+import { Notes } from "./pages/Notes";
 import { SignIn } from "./pages/Auth/SignIn";
 import { SignUp } from "./pages/Auth/SignUp";
-import { Header } from "./components/Header";
+import { Testground } from "./pages/Testground";
+import { Testgrounds } from "./pages/Testground";
 
 export const Router = () => {
   const { user } = useContext(UserContext);
@@ -31,6 +32,7 @@ export const Router = () => {
           <Routes>
             <Route path="/" element={<div>Home</div>} />
             <Route path="add-note" element={<AddNote />} />
+            <Route path="notes" element={<Notes />} />
             <Route path="about" element={<div>about</div>} />
             <Route path="testgrounds" element={<Testgrounds />}>
               <Route

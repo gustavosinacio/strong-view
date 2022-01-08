@@ -46,10 +46,9 @@ export const AddNote = (): ReactElement => {
 
     try {
       const docRef = await addUserNote({
-        userUid: user.uid,
+        userUid: user.uid || "",
         title,
         content,
-        // testData: true,
       });
 
       setTitle("");
@@ -80,7 +79,7 @@ export const AddNote = (): ReactElement => {
       setSnackTitle("Sucesso");
       setSnackMessage("Notas de teste removidos com sucesso");
       setSnackType("success");
-      await removeUserTestData({ userUid: user.uid, refPath: "notes" });
+      await removeUserTestData({ userUid: user.uid || "", refPath: "notes" });
     } catch (e: any) {
       setSnackTitle(e.name);
       setSnackMessage(e.message);
@@ -124,8 +123,10 @@ export const AddNote = (): ReactElement => {
             id="input-content"
             variant="outlined"
             placeholder="Conteúdo da nota"
+            label="Nota"
             multiline
             maxRows={18}
+            minRows={4}
             value={content}
             onChange={handleChange}
           />

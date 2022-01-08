@@ -13,10 +13,10 @@ type UserContextProps = {
 };
 
 type User = {
-  uid?: string | null;
-  email?: string | null;
-  createdAt?: string | null;
-  lastSignIn?: string | null;
+  uid: string | null;
+  email: string | null;
+  createdAt?: string;
+  lastSignIn?: string;
 };
 
 export const UserContext = createContext({} as UserContextProps);

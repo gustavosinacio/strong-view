@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 import LogoutIcon from "@mui/icons-material/Logout";
 import SleddingIcon from "@mui/icons-material/Sledding";
@@ -11,9 +11,8 @@ import {
   BoxStyle,
   LogoutButtonStyle,
   LinkBoxStyle,
-  LinkStyle,
+  StyledLink,
 } from "./Header.styles";
-import { NavLink } from "react-router-dom";
 
 export const Header = () => {
   const auth = getAuth();
@@ -22,7 +21,10 @@ export const Header = () => {
   const logout = async () => {
     try {
       await signOut(auth);
-      setUser({});
+      setUser({
+        uid: null,
+        email: null,
+      });
 
       console.log(98214, "signedOut");
     } catch (e) {
@@ -32,7 +34,7 @@ export const Header = () => {
 
   return (
     <Box>
-      <Container sx={BoxStyle}>
+      <Box sx={BoxStyle}>
         <Box>
           <Link to="/">
             <SleddingIcon color="primary" fontSize="large" />
@@ -43,21 +45,14 @@ export const Header = () => {
           <Typography>logout</Typography>
           <LogoutIcon fontSize="small" />
         </Button>
-      </Container>
-      <Container sx={LinkBoxStyle}>
-        <NavLink to="/" style={LinkStyle}>
-          Home
-        </NavLink>
-        <NavLink to="add-note" style={LinkStyle}>
-          +note
-        </NavLink>
-        <NavLink to="about" style={LinkStyle}>
-          about
-        </NavLink>
-        <NavLink to="testgrounds" style={LinkStyle}>
-          testgrounds
-        </NavLink>
-      </Container>
+      </Box>
+      <Box sx={LinkBoxStyle}>
+        <StyledLink to="/">Home</StyledLink>
+        <StyledLink to="notes">Notes</StyledLink>
+        <StyledLink to="add-note">+note</StyledLink>
+        <StyledLink to="about">about</StyledLink>
+        <StyledLink to="testgrounds">testgrounds</StyledLink>
+      </Box>
     </Box>
   );
 };
