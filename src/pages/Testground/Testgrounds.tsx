@@ -1,10 +1,9 @@
-import { Color, useTheme } from "@mui/material";
 import { NavLink, Outlet } from "react-router-dom";
 import { getTestgrounds } from "../../data";
 
 export const Testgrounds = () => {
   let testgrounds = getTestgrounds();
-  const theme = useTheme();
+
   return (
     <div style={{ display: "flex" }}>
       <nav
