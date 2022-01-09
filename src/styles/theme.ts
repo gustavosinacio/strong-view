@@ -22,6 +22,10 @@ let theme = createTheme({
     // red: "#fa3040",
   },
   sizing: { ...sizing },
+  borderRadius: {
+    small: 4,
+    medium: 8,
+  },
   typography: {
     fontFamily: [
       "Quicksand",

@@ -1,10 +1,35 @@
 import styled from "styled-components";
+import { Box, Container as MuiContainer, SxProps } from "@mui/material";
 
-export const Container = styled.div`
+export const Container = styled(MuiContainer)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   padding: 20px;
+  border: 3px dotted #f29;
+  min-height: 80vh;
+`;
 
+export const NoteEditContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+
+  & > div:not(:first-child) {
+    margin-top: 10px;
+  }
+`;
+
+export const NoteInputContainer = styled(Box)`
+  display: flex;
+  flex-direction: column;
+
+  & > :first-child {
+    margin-top: 0px;
+  }
+`;
+
+export const ButtonsContainer = styled(Box)`
   & > *:not(:first-child) {
-    border-radius: 8px;
-    margin-top: 20px;
+    margin-left: 20px;
   }
 `;

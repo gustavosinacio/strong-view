@@ -1,4 +1,4 @@
-import { UserUid, RemoveUserTestData, UserNote, NoteData } from "../types";
+import { UserUid, RemoveUserTestData, UserNote } from "../types";
 import {
   addDoc,
   collection,
@@ -12,7 +12,12 @@ import {
   orderBy,
 } from "firebase/firestore";
 
-export const addUserNote = async ({ userUid, title, content }: UserNote) => {
+export const addUserNote = async ({
+  userUid,
+  title,
+  content,
+  moods,
+}: UserNote) => {
   if (!userUid) throw new Error("addNote needs user uid");
 
   const firestoreDb = getFirestore();
@@ -21,8 +26,9 @@ export const addUserNote = async ({ userUid, title, content }: UserNote) => {
     collection(firestoreDb, "users", userUid, "notes"),
     {
       title,
-      content,
+      content: content,
       createdAt: new Date(),
+      moods,
     }
   );
 
@@ -68,10 +74,13 @@ export const getNotes = async ({ userUid }: UserUid) => {
     const notes: DocumentData[] = [];
 
     notesSnapshot.forEach((note) => {
-      const noteData = note.data() as NoteData;
+      const noteData = note.data();
 
       notes.push({
         ...noteData,
+        // content: noteData.content.replace(/\n/g, "\n").split("\\n"),
+        content: noteData.content.split("\n"),
+        // content: noteData.content,
         id: note.id,
       });
     });

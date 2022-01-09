@@ -2,14 +2,18 @@ import { useContext, useEffect, useState } from "react";
 import { DocumentData } from "firebase/firestore";
 import { format } from "date-fns";
 
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 
 import { UserContext } from "../../contexts/user";
 import { NoteData } from "../../types";
 import { getNotes } from "../../utils/firebase";
 
+import { Container } from "./Notes.styles";
+
 export const Notes = () => {
   const { user } = useContext(UserContext);
+  const theme = useTheme();
+
   const [notes, setNotes] = useState<DocumentData>();
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -29,28 +33,45 @@ export const Notes = () => {
   }, [user.uid]);
 
   const renderNote = (note: NoteData) => (
-    <Container
-      sx={{
-        border: "1px solid #aaa",
-        borderRadius: "8px",
-        "&:not(:first-child)": { marginY: "20px", paddingY: "20px" },
-      }}
-    >
+    <Container key={note.id}>
+      <Box sx={{ padding: "20px 20px 10px" }}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            h5: {
+              marginBottom: "8px",
+            },
+          }}
+        >
+          <Typography variant="h5">{note.title}</Typography>
+        </Box>
+        <Typography variant="body1">
+          {note.content.map((string: string, index: number) => {
+            if (string === "") return <br key={index} />;
+            else
+              return (
+                <span key={index}>
+                  {string}
+                  <br />
+                </span>
+              );
+          })}
+        </Typography>
+      </Box>
+
       <Box
         sx={{
-          display: "flex",
-          alignItems: "center",
-          h5: {
-            marginBottom: "8px",
-          },
+          backgroundColor: theme.palette.background.paper,
+          borderBottomLeftRadius: theme.borderRadius.small,
+          borderBottomRightRadius: theme.borderRadius.small,
+          padding: "5px 10px",
         }}
       >
-        <Typography variant="h5">{note.title}</Typography>
+        <Typography variant="subtitle1" color="text">
+          {format(note.createdAt.toDate(), "dd/MM/yyyy - HH:mm")}
+        </Typography>
       </Box>
-      <Typography variant="body1">{note.content}</Typography>
-      <Typography variant="subtitle1" color="InactiveCaptionText">
-        {format(note.createdAt.toDate(), "dd/MM/yyyy - HH:mm")}
-      </Typography>
     </Container>
   );
 
@@ -71,7 +92,7 @@ export const Notes = () => {
           <CircularProgress color="warning" />
         </Box>
       ) : (
-        <Box sx={{}}>
+        <Box>
           {notes && notes.length > 0 ? (
             notes.map(renderNote)
           ) : (

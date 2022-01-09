@@ -12,6 +12,10 @@ declare module "@mui/material/styles" {
       yellow?: Color;
       red?: Color;
     };
+    borderRadius: {
+      small: number;
+      medium: number;
+    };
     sizing: {
       scale0: string;
       scale100: string;
@@ -33,6 +37,10 @@ declare module "@mui/material/styles" {
     colors?: {
       yellow?: Color;
       red?: Color;
+    };
+    borderRadius: {
+      small: number;
+      medium: number;
     };
     sizing: {
       scale0: string;

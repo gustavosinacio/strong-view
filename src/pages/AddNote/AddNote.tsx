@@ -1,3 +1,4 @@
+import { ReactElement, useContext, useState } from "react";
 import {
   Button,
   FormControl,
@@ -5,12 +6,32 @@ import {
   TextField,
   Box,
   AlertColor,
+  Select,
+  MenuItem,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
+  FormLabel,
+  FormHelperText,
 } from "@mui/material";
-import { ReactElement, useContext, useState } from "react";
-import { Container } from "./AddNote.styles";
 import { UserContext } from "../../contexts/user";
 import { SnackbarErrorSuccess } from "../../components/SnackbarErrorSuccess";
 import { addUserNote, removeUserTestData } from "../../utils/firebase";
+
+import {
+  NoteEditContainer,
+  ButtonsContainer,
+  Container,
+  NoteInputContainer,
+} from "./AddNote.styles";
+import {
+  Favorite,
+  FavoriteBorder,
+  BookmarkBorder,
+  Bookmark,
+  EmojiEmotions,
+  EmojiEmotionsOutlined,
+} from "@mui/icons-material";
 
 export const AddNote = (): ReactElement => {
   const { user } = useContext(UserContext);
@@ -18,6 +39,7 @@ export const AddNote = (): ReactElement => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
+  const [moods, setMoods] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState({
     addNote: false,
     removeData: false,
@@ -49,6 +71,7 @@ export const AddNote = (): ReactElement => {
         userUid: user.uid || "",
         title,
         content,
+        moods,
       });
 
       setTitle("");
@@ -57,6 +80,7 @@ export const AddNote = (): ReactElement => {
       setSnackMessage("Nota adicionada com sucesso");
       setSnackType("success");
       setOpenSnackbar(true);
+      setMoods([]);
 
       console.log("Document written with ID: ", docRef);
     } catch (e: any) {
@@ -105,41 +129,95 @@ export const AddNote = (): ReactElement => {
     }
   };
 
+  const handleChangeMood = (event: any) => {
+    console.log(982156, event.target.name);
+
+    const changed = event.target.name;
+    const indexOfMood = moods.indexOf(changed);
+    if (indexOfMood < 0) {
+      setMoods((currentMoods) => [...currentMoods, changed]);
+    } else {
+      const newMoods = [...moods];
+      newMoods.splice(indexOfMood, 1);
+      setMoods(newMoods);
+    }
+  };
+
   return (
     <Container>
-      <Box style={{ display: "flex", flexDirection: "column" }}>
-        <FormControl margin="dense" variant="standard" error={error !== ""}>
-          <TextField
-            id="input-title"
-            label="Título"
-            value={title}
-            onChange={handleChange}
-          />
-        </FormControl>
+      <NoteEditContainer>
+        <Box sx={{ flex: 1 }}>
+          <NoteInputContainer>
+            <FormControl margin="dense" variant="standard" error={error !== ""}>
+              <TextField
+                id="input-title"
+                label="Título"
+                value={title}
+                onChange={handleChange}
+              />
+            </FormControl>
 
-        <FormControl margin="dense" variant="filled" error={error !== ""}>
-          <InputLabel htmlFor="input-content" />
-          <TextField
-            id="input-content"
-            variant="outlined"
-            placeholder="Conteúdo da nota"
-            label="Nota"
-            multiline
-            maxRows={18}
-            minRows={4}
-            value={content}
-            onChange={handleChange}
-          />
-        </FormControl>
-      </Box>
+            <FormControl margin="dense" variant="filled" error={error !== ""}>
+              <InputLabel htmlFor="input-content" />
+              <TextField
+                id="input-content"
+                variant="outlined"
+                placeholder="Conteúdo da nota"
+                label="Nota"
+                multiline
+                maxRows={10}
+                minRows={4}
+                value={content}
+                onChange={handleChange}
+              />
+            </FormControl>
+          </NoteInputContainer>
+        </Box>
+        <Box sx={{ flex: 1 }}>
+          <FormControl sx={{ m: 3, margin: 0 }} variant="standard">
+            <FormGroup>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={moods.indexOf("apx") >= 0}
+                    onChange={handleChangeMood}
+                    name="apx"
+                    icon={<FavoriteBorder />}
+                    checkedIcon={<Favorite />}
+                  />
+                }
+                label="apx"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={moods.indexOf("estudioso") >= 0}
+                    onChange={handleChangeMood}
+                    name="estudioso"
+                    icon={<BookmarkBorder />}
+                    checkedIcon={<Bookmark />}
+                  />
+                }
+                label="estudioso"
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={moods.indexOf("feliz") >= 0}
+                    onChange={handleChangeMood}
+                    name="feliz"
+                    icon={<EmojiEmotionsOutlined />}
+                    checkedIcon={<EmojiEmotions />}
+                  />
+                }
+                label="feliz"
+              />
+            </FormGroup>
+          </FormControl>
+        </Box>
+      </NoteEditContainer>
 
-      <Box
-        sx={{
-          "& > *:not(:first-child)": {
-            marginLeft: "20px",
-          },
-        }}
-      >
+      <ButtonsContainer>
         <Button
           variant="contained"
           onClick={handleAddNoteFirebase}
@@ -154,7 +232,7 @@ export const AddNote = (): ReactElement => {
         >
           remove test data
         </Button>
-      </Box>
+      </ButtonsContainer>
 
       <SnackbarErrorSuccess
         message={snackMessage}
