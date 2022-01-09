@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { Box, Container as MuiContainer, SxProps } from "@mui/material";
+import { Box, Container as MuiContainer } from "@mui/material";
 
 export const Container = styled(MuiContainer)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  border: 3px dotted #f29;
+  /* border: 3px dotted #f29; */
   min-height: 80vh;
 `;
 

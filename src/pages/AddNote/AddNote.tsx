@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useContext, useEffect, useState } from "react";
 import {
   Button,
   FormControl,
@@ -6,17 +6,13 @@ import {
   TextField,
   Box,
   AlertColor,
-  Select,
-  MenuItem,
-  Checkbox,
-  FormGroup,
-  FormControlLabel,
-  FormLabel,
-  FormHelperText,
+  Typography,
 } from "@mui/material";
 import { UserContext } from "../../contexts/user";
 import { SnackbarErrorSuccess } from "../../components/SnackbarErrorSuccess";
 import { addUserNote, removeUserTestData } from "../../utils/firebase";
+
+import { MoodSelector } from "./MoodSelector/MoodSelector";
 
 import {
   NoteEditContainer,
@@ -24,14 +20,6 @@ import {
   Container,
   NoteInputContainer,
 } from "./AddNote.styles";
-import {
-  Favorite,
-  FavoriteBorder,
-  BookmarkBorder,
-  Bookmark,
-  EmojiEmotions,
-  EmojiEmotionsOutlined,
-} from "@mui/icons-material";
 
 export const AddNote = (): ReactElement => {
   const { user } = useContext(UserContext);
@@ -63,6 +51,8 @@ export const AddNote = (): ReactElement => {
       setSnackMessage("Preencha os campos");
       setSnackType("error");
       setOpenSnackbar(true);
+      setIsLoading((isLoading) => ({ ...isLoading, addNote: false }));
+
       return;
     }
 
@@ -129,19 +119,22 @@ export const AddNote = (): ReactElement => {
     }
   };
 
-  const handleChangeMood = (event: any) => {
-    console.log(982156, event.target.name);
+  const handleChangeMood = (event: any, checked: boolean) => {
+    const changedName = event.target.name;
 
-    const changed = event.target.name;
-    const indexOfMood = moods.indexOf(changed);
-    if (indexOfMood < 0) {
-      setMoods((currentMoods) => [...currentMoods, changed]);
+    if (checked) {
+      setMoods((currentMoods) => [...currentMoods, changedName]);
     } else {
+      const indexOfMood = moods.indexOf(changedName);
       const newMoods = [...moods];
       newMoods.splice(indexOfMood, 1);
       setMoods(newMoods);
     }
   };
+
+  useEffect(() => {
+    console.log(982145, moods);
+  }, [moods]);
 
   return (
     <Container>
@@ -173,48 +166,7 @@ export const AddNote = (): ReactElement => {
             </FormControl>
           </NoteInputContainer>
         </Box>
-        <Box sx={{ flex: 1 }}>
-          <FormControl sx={{ m: 3, margin: 0 }} variant="standard">
-            <FormGroup>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={moods.indexOf("apx") >= 0}
-                    onChange={handleChangeMood}
-                    name="apx"
-                    icon={<FavoriteBorder />}
-                    checkedIcon={<Favorite />}
-                  />
-                }
-                label="apx"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={moods.indexOf("estudioso") >= 0}
-                    onChange={handleChangeMood}
-                    name="estudioso"
-                    icon={<BookmarkBorder />}
-                    checkedIcon={<Bookmark />}
-                  />
-                }
-                label="estudioso"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={moods.indexOf("feliz") >= 0}
-                    onChange={handleChangeMood}
-                    name="feliz"
-                    icon={<EmojiEmotionsOutlined />}
-                    checkedIcon={<EmojiEmotions />}
-                  />
-                }
-                label="feliz"
-              />
-            </FormGroup>
-          </FormControl>
-        </Box>
+        <MoodSelector moods={moods} handleChangeMood={handleChangeMood} />
       </NoteEditContainer>
 
       <ButtonsContainer>
