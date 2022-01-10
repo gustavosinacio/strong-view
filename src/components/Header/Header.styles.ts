@@ -46,7 +46,6 @@ export const StyledLink = styled(NavLink)`
 
   &.active {
     color: ${theme.palette.primary.main};
-    text-decoration: underline;
     background-color: ${theme.palette.background.paper};
   }
 `;
