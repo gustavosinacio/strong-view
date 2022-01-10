@@ -18,6 +18,8 @@ import {
   TvTwoTone,
   Whatshot,
   WhatshotOutlined,
+  Work,
+  WorkOutline,
 } from "@mui/icons-material";
 import { Box, Checkbox, Tooltip, Typography } from "@mui/material";
 import { useMemo } from "react";
@@ -157,6 +159,15 @@ export const MoodSelector = ({
             name="music"
             icon={<MusicNoteOutlined fontSize={iconFontSize} />}
             checkedIcon={<MusicNote fontSize={iconFontSize} />}
+          />
+        </Tooltip>
+        <Tooltip title="work">
+          <Checkbox
+            checked={moods.indexOf("work") >= 0}
+            onChange={handleChangeMood}
+            name="work"
+            icon={<WorkOutline fontSize={iconFontSize} />}
+            checkedIcon={<Work fontSize={iconFontSize} />}
           />
         </Tooltip>
       </SelectorArea>
