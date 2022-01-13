@@ -1,4 +1,4 @@
-import { ReactElement, useContext, useEffect, useState } from "react";
+import { ReactElement, useContext, useState } from "react";
 import {
   Button,
   FormControl,
@@ -19,6 +19,7 @@ import {
   Container,
   NoteInputContainer,
 } from "./AddNote.styles";
+import { useMood } from "../../contexts/moods";
 
 export const AddNote = (): ReactElement => {
   const { user } = useContext(UserContext);
@@ -26,7 +27,7 @@ export const AddNote = (): ReactElement => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [error, setError] = useState("");
-  const [moods, setMoods] = useState<string[]>([]);
+  const [moods, disptachMood] = useMood();
   const [isLoading, setIsLoading] = useState({
     addNote: false,
     removeData: false,
@@ -69,7 +70,7 @@ export const AddNote = (): ReactElement => {
       setSnackMessage("Nota adicionada com sucesso");
       setSnackType("success");
       setOpenSnackbar(true);
-      setMoods([]);
+      disptachMood({ type: "clearMoods", payload: "" });
 
       console.log("Document written with ID: ", docRef);
     } catch (e: any) {
@@ -118,23 +119,6 @@ export const AddNote = (): ReactElement => {
     }
   };
 
-  const handleChangeMood = (event: any, checked: boolean) => {
-    const changedName = event.target.name;
-
-    if (checked) {
-      setMoods((currentMoods) => [...currentMoods, changedName]);
-    } else {
-      const indexOfMood = moods.indexOf(changedName);
-      const newMoods = [...moods];
-      newMoods.splice(indexOfMood, 1);
-      setMoods(newMoods);
-    }
-  };
-
-  useEffect(() => {
-    console.log(982145, moods);
-  }, [moods]);
-
   return (
     <Container>
       <NoteEditContainer>
@@ -165,7 +149,7 @@ export const AddNote = (): ReactElement => {
             </FormControl>
           </NoteInputContainer>
         </Box>
-        <MoodSelector moods={moods} handleChangeMood={handleChangeMood} />
+        <MoodSelector />
       </NoteEditContainer>
 
       <ButtonsContainer>

@@ -8,14 +8,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Router } from "./routes";
 import { theme } from "./styles/theme";
 import { UserProvider } from "./contexts/user";
+import { MoodProvider } from "./contexts/moods";
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <UserProvider>
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
+        <MoodProvider>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </MoodProvider>
       </UserProvider>
     </ThemeProvider>
   </React.StrictMode>,
