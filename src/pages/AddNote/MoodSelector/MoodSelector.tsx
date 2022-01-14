@@ -1,16 +1,8 @@
 import {
-  AcUnit,
   Favorite,
   FavoriteBorder,
-  FitnessCenter,
-  LocalDining,
-  MenuBook,
-  MenuBookOutlined,
   MusicNote,
   MusicNoteOutlined,
-  SelfImprovement,
-  SentimentSatisfiedAlt,
-  SentimentVeryDissatisfied,
   SentimentVerySatisfied,
   SentimentVerySatisfiedOutlined,
   Sick,
@@ -23,7 +15,6 @@ import {
   WorkOutline,
 } from "@mui/icons-material";
 import { Box, Typography } from "@mui/material";
-import { useMemo } from "react";
 import { Mood } from "./Mood";
 import { SelectorArea } from "./MoodSelector.styles";
 
@@ -37,21 +28,25 @@ export const MoodSelector = () => {
       </Typography>
 
       <SelectorArea>
-        <Mood name="loving" iconName="favorite_border" />
-        <Mood name="studying" iconName="menu_book" />
-        <Mood name="happy" iconName="sentiment_very_satisfied" />
-        <Mood name="satisfied" iconName="sentiment_satisfied_alt" />
-        <Mood name="sick" iconName="sick" />
-        <Mood name="fit" iconName="fitness_center" />
-        <Mood name="hungry" iconName="local_dining" />
-        <Mood name="sad" iconName="sentiment_very_dissatisfied" />
-        <Mood name="cold" iconName="ac_unit" />
-        <Mood name="hot" iconName="whatshot" />
-        <Mood name="zen" iconName="self_improvement" />
-        <Mood name="TV" iconName="tv" />
-        <Mood name="music" iconName="music_note" />
-        <Mood name="work" iconName="work" />
-        <Mood name="neutral" iconName="sentiment_neutral" />
+        <Mood name="loving" icon={FavoriteBorder} checkedIcon={Favorite} />
+        <Mood name="studying" />
+        <Mood
+          name="happy"
+          icon={SentimentVerySatisfied}
+          checkedIcon={SentimentVerySatisfiedOutlined}
+        />
+        <Mood name="satisfied" />
+        <Mood name="sick" icon={Sick} checkedIcon={SickOutlined} />
+        <Mood name="fit" />
+        <Mood name="hungry" />
+        <Mood name="sad" />
+        <Mood name="cold" />
+        <Mood name="hot" icon={WhatshotOutlined} checkedIcon={Whatshot} />
+        <Mood name="zen" />
+        <Mood name="TV" icon={Tv} checkedIcon={TvTwoTone} />
+        <Mood name="music" icon={MusicNoteOutlined} checkedIcon={MusicNote} />
+        <Mood name="work" icon={WorkOutline} checkedIcon={Work} />
+        <Mood name="neutral" />
       </SelectorArea>
     </Box>
   );
