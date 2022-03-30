@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Routes, Route } from "react-router-dom";
 import { getAuth } from "firebase/auth";
+import { CircularProgress, Grid } from "@mui/material";
 
 import { AddNote } from "../pages/AddNote/AddNote";
 import { FallbackPage } from "../pages/FallbackPage";
@@ -34,7 +35,15 @@ export const Router = () => {
   return (
     <ErrorBoundary FallbackComponent={FallbackPage}>
       {loading ? (
-        <>Loading</>
+        <Grid
+          container
+          flex={1}
+          alignItems="center"
+          justifyContent="center"
+          height="100vh"
+        >
+          <CircularProgress />
+        </Grid>
       ) : isLoggedIn ? (
         <>
           <Header />
