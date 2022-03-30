@@ -20,4 +20,5 @@ export interface NoteData {
   title: string;
   content: string[];
   createdAt: Timestamp;
+  testData?: boolean;
 }

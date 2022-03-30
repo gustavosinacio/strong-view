@@ -72,6 +72,7 @@ export const Notes = () => {
       >
         <Typography variant="subtitle1" color="text">
           {format(note.createdAt.toDate(), "dd/MM/yyyy - HH:mm")}
+          {note.testData && " TEST DATA REMOVE LATER"}
         </Typography>
       </Box>
     </Container>
