@@ -9,7 +9,6 @@ import { Router } from "./routes/routes";
 import { theme } from "./styles/theme";
 import { UserProvider } from "./contexts/user";
 import { MoodProvider } from "./contexts/moods";
-import { SignIn } from "./pages/Auth/SignIn";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -17,8 +16,6 @@ ReactDOM.render(
       <UserProvider>
         <MoodProvider>
           <BrowserRouter>
-            router here
-            <SignIn />
             <Router />
           </BrowserRouter>
         </MoodProvider>
