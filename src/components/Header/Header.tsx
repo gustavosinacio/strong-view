@@ -3,9 +3,7 @@ import { Box, Button, Typography } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SleddingIcon from "@mui/icons-material/Sledding";
 import { getAuth, signOut } from "firebase/auth";
-import { useContext } from "react";
 
-import { UserContext } from "../../contexts/user";
 import {
   Link,
   BoxStyle,
@@ -16,15 +14,10 @@ import {
 
 export const Header = () => {
   const auth = getAuth();
-  const { setUser } = useContext(UserContext);
 
   const logout = async () => {
     try {
       await signOut(auth);
-      setUser({
-        uid: null,
-        email: null,
-      });
 
       console.log(98214, "signedOut");
     } catch (e) {

@@ -1,7 +1,7 @@
 import { Timestamp } from "firebase/firestore";
 
 export interface UserUid extends UserUid {
-  userUid: string | null;
+  userUid?: string;
 }
 
 export interface UserNote extends UserUid {

@@ -1,17 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { DocumentData } from "firebase/firestore";
 import { format } from "date-fns";
 
 import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 
-import { UserContext } from "../../contexts/user";
 import { NoteData } from "../../types";
 import { getNotes } from "../../utils/firebase";
 
 import { Container } from "./Notes.styles";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
 
 export const Notes = () => {
-  const { user } = useContext(UserContext);
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
   const theme = useTheme();
 
   const [notes, setNotes] = useState<DocumentData>();
@@ -20,7 +22,7 @@ export const Notes = () => {
   useEffect(() => {
     const getFirebaseNotes = async () => {
       try {
-        const firebaseNotes = await getNotes({ userUid: user.uid });
+        const firebaseNotes = await getNotes({ userUid: user?.uid });
         setNotes(firebaseNotes);
       } catch (e) {
         throw e;
@@ -30,7 +32,7 @@ export const Notes = () => {
     };
 
     getFirebaseNotes();
-  }, [user.uid]);
+  }, [user?.uid]);
 
   const renderNote = (note: NoteData) => (
     <Container key={note.id}>

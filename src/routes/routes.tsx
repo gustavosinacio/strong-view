@@ -1,9 +1,7 @@
-import { useContext, useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
 import { Routes, Route } from "react-router-dom";
 import { getAuth } from "firebase/auth";
-
-import { UserContext } from "../contexts/user";
 
 import { AddNote } from "../pages/AddNote/AddNote";
 import { FallbackPage } from "../pages/FallbackPage";
@@ -15,19 +13,29 @@ import { Testground } from "../pages/Testground";
 import { Testgrounds } from "../pages/Testground";
 
 import * as S from "./routes.styles";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const Router = () => {
-  const { user } = useContext(UserContext);
   const auth = getAuth();
-  const isLoggedIn = user.email;
+  const [user, loading, authError] = useAuthState(auth);
+
+  const isLoggedIn = useMemo(() => {
+    return user;
+  }, [user]);
 
   useEffect(() => {
     auth.currentUser?.reload();
-  }, [auth.currentUser]);
+  }, [auth.currentUser, auth]);
+
+  useEffect(() => {
+    console.log(9821, user);
+  }, [user]);
 
   return (
     <ErrorBoundary FallbackComponent={FallbackPage}>
-      {isLoggedIn ? (
+      {loading ? (
+        <>Loading</>
+      ) : isLoggedIn ? (
         <>
           <Header />
 

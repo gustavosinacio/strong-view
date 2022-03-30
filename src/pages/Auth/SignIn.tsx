@@ -1,6 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 import {
   Alert,
   Button,
@@ -13,7 +14,6 @@ import {
 } from "@mui/material";
 
 import { CenterContent, ChangePageButtonSX } from "./styles";
-import { UserContext } from "../../contexts/user";
 
 export const SignIn = () => {
   const auth = getAuth();
@@ -21,8 +21,6 @@ export const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  const { setUser } = useContext(UserContext);
 
   const handleChange = (event: any) => {
     const { id, value } = event.target;
@@ -42,14 +40,7 @@ export const SignIn = () => {
 
   const handleSubmit = async () => {
     try {
-      const { user } = await signInWithEmailAndPassword(auth, email, password);
-
-      setUser({
-        uid: user.uid,
-        email: user?.email,
-        createdAt: user.metadata.creationTime,
-        lastSignIn: user.metadata.lastSignInTime,
-      });
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error: any) {
       console.log(98217, error.message);
       setError(error.message);
@@ -72,7 +63,6 @@ export const SignIn = () => {
         direction={{ xs: "column" }}
         justifyContent="center"
         alignItems="center"
-        // bgcolor="#3092"
       >
         <Grid
           sx={{
@@ -91,6 +81,8 @@ export const SignIn = () => {
         </Grid>
         <Grid
           sm={12}
+          item
+          container
           display={"flex"}
           direction={"column"}
           marginY={"30px"}

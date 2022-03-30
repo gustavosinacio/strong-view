@@ -1,4 +1,6 @@
-import { ReactElement, useContext, useState } from "react";
+import { ReactElement, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { getAuth } from "firebase/auth";
 import {
   Button,
   FormControl,
@@ -7,7 +9,6 @@ import {
   Box,
   AlertColor,
 } from "@mui/material";
-import { UserContext } from "../../contexts/user";
 import { SnackbarErrorSuccess } from "../../components/SnackbarErrorSuccess";
 import { addUserNote, removeUserTestData } from "../../utils/firebase";
 
@@ -22,7 +23,8 @@ import {
 import { useMood } from "../../contexts/moods";
 
 export const AddNote = (): ReactElement => {
-  const { user } = useContext(UserContext);
+  const auth = getAuth();
+  const [user] = useAuthState(auth);
 
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -58,7 +60,7 @@ export const AddNote = (): ReactElement => {
 
     try {
       const docRef = await addUserNote({
-        userUid: user.uid || "",
+        userUid: user?.uid || "",
         title,
         content,
         moods,
@@ -93,7 +95,7 @@ export const AddNote = (): ReactElement => {
       setSnackTitle("Sucesso");
       setSnackMessage("Notas de teste removidos com sucesso");
       setSnackType("success");
-      await removeUserTestData({ userUid: user.uid || "", refPath: "notes" });
+      await removeUserTestData({ userUid: user?.uid || "", refPath: "notes" });
     } catch (e: any) {
       setSnackTitle(e.name);
       setSnackMessage(e.message);
