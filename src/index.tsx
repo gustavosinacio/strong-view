@@ -5,7 +5,7 @@ import "./configs/firebase";
 
 import { ThemeProvider } from "@mui/material";
 import { BrowserRouter } from "react-router-dom";
-import { Router } from "./routes";
+import { Router } from "./routes/routes";
 import { theme } from "./styles/theme";
 import { UserProvider } from "./contexts/user";
 import { MoodProvider } from "./contexts/moods";

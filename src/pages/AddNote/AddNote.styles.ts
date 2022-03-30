@@ -5,9 +5,8 @@ export const Container = styled(MuiContainer)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 20px;
-  /* border: 3px dotted #f29; */
   min-height: 80vh;
+  padding: 0;
 `;
 
 export const NoteEditContainer = styled(Box)`

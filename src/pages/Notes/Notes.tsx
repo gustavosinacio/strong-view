@@ -76,11 +76,7 @@ export const Notes = () => {
   );
 
   return (
-    <Box
-      sx={{
-        padding: "20px",
-      }}
-    >
+    <Box>
       {loading ? (
         <Box
           sx={{
